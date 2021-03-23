@@ -66,8 +66,8 @@ public class PostController {
     }
 
     @PostMapping("/{postId}/{username}/favorite")
-    public ResponseEntity<PostDTO> likePost(@PathVariable("postId") String postId,
-                                            @PathVariable("username") String username) {
+    public ResponseEntity<PostDTO> favoritePost(@PathVariable("postId") String postId,
+                                                @PathVariable("username") String username) {
         Post post = postService.favoritePost(Long.parseLong(postId), username);
         PostDTO postDTO = postFacade.postToPostDTO(post);
 

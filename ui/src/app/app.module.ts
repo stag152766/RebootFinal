@@ -8,10 +8,15 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MaterialModule} from "./material-module";
 import {authInterceptorProviders} from "./services/auth-interceptor.service";
+import {authErrorInterceptorProviders} from "./services/error-interceptor.service";
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +27,7 @@ import {authInterceptorProviders} from "./services/auth-interceptor.service";
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, authErrorInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
