@@ -73,7 +73,7 @@ public class PostService {
         User user = getUserByPrincipal(principal);
         return postRepository.findAllByUserOrderByCreatedDateDesc(user)
                 .stream()
-                .filter(p -> p.getFavoritedUsers().contains(user.getName()))
+                .filter(p -> p.getFavoritedUsers().contains(user.getUsername()))
                 .collect(Collectors.toList());
     }
 
@@ -82,12 +82,12 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException("Post cannot be found"));
 
-        Optional<String> userFavorited = post.getFavoritedUsers()
+        Optional<String> usersFavorited = post.getFavoritedUsers()
                 .stream()
                 .filter(u -> u.equals(username))
                 .findAny();
 
-        if (userFavorited.isPresent()) {
+        if (usersFavorited.isPresent()) {
             post.setFavorites(post.getFavorites() - 1);
             post.getFavoritedUsers().remove(username);
         } else {

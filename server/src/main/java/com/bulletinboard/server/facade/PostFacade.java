@@ -14,6 +14,7 @@ public class PostFacade {
         postDTO.setCaption(post.getCaption());
         postDTO.setLocation(post.getLocation());
         postDTO.setTitle(post.getTitle());
+        postDTO.setUsersFavorited(post.getFavoritedUsers());
 
         return postDTO;
     };
