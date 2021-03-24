@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 
-
+/**
+ * Контроллер для управления пользователем
+ * Получает http запрос и передает json ответа на клиент
+ */
 @RestController
 @RequestMapping("api/user")
 @CrossOrigin
@@ -30,6 +33,11 @@ public class UserController {
     private ResponseErrorValidation responseErrorValidation;
 
 
+    /**
+     * Метод для возвращения авторизованного пользователя
+     * @param principal
+     * @return
+     */
     @GetMapping("/")
     public ResponseEntity<UserDTO> getCurrentUser(Principal principal) {
         User user = userService.getCurrentUser(principal);
@@ -40,6 +48,11 @@ public class UserController {
 
     }
 
+    /**
+     * Метод для возвращения пользователя по ИД
+     * @param userId
+     * @return
+     */
     @GetMapping("/{userId}")
     public ResponseEntity<UserDTO> getUserProfile(@PathVariable("userId") String userId) {
         User user = userService.getUserById(Long.parseLong(userId));
@@ -47,6 +60,13 @@ public class UserController {
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
+    /**
+     * Метод для редактирования авторизованного пользователя
+     * @param userDTO
+     * @param bindingResult
+     * @param principal
+     * @return
+     */
     @PostMapping("/update")
     public ResponseEntity<Object> updateUser(@Valid @RequestBody UserDTO userDTO,
                                              BindingResult bindingResult,

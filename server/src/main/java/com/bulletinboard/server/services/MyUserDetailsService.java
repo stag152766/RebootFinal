@@ -13,10 +13,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// Вспомогательный класс для поиска данных из бд
+
+/**
+ * Вспомогательный сервис для поиска пользователя в базе данных
+ */
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
+    /**
+     * Класс хранилище для взаимодействия с базой данных
+     */
     private final UserRepository userRepository;
 
 
@@ -25,7 +31,11 @@ public class MyUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-
+    /**
+     * По запросу клиента возвращает объект Пользователя из базы данных по username
+     * @param username
+     * @return
+     */
     @Override
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findUserByEmail(username)
@@ -34,11 +44,21 @@ public class MyUserDetailsService implements UserDetailsService {
         return build(user);
     }
 
+    /**
+     * Поиск пользователя по ИД
+     * @param id
+     * @return
+     */
     public User loadUserById(Long id) {
         return userRepository.findUserById(id).orElse(null);
     }
 
 
+    /**
+     * Вспомогательный метод, который строит объект Пользователя
+     * @param user
+     * @return
+     */
     public static User build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.name()))

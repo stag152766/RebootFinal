@@ -24,6 +24,9 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+/**
+ * Сервис для управления изображением
+ */
 @Service
 public class ImageService {
 

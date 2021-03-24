@@ -11,12 +11,18 @@ import org.springframework.validation.ObjectError;
 import java.util.HashMap;
 import java.util.Map;
 
-// Сервис, возвращающий мап с ошибками
+/**
+ * Вспомогательный сервис для обработки ошибок
+ */
 @Service
 public class ResponseErrorValidation {
 
-
-    // BindingResult приходит из validation framework, содержащий ошибки (н-р, пустой пароль)
+    /**
+     * Метод для обработки ошибки
+     * BindingResult приходит из springframework.validation, содержащий ошибки (н-р, пустой пароль)
+     * @param result
+     * @return возвращает Map с ошибками либо null
+     */
     public ResponseEntity<Object> mapValidationService(BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
@@ -32,11 +38,11 @@ public class ResponseErrorValidation {
             for (FieldError error : result.getFieldErrors()) {
                 errorMap.put(error.getField(), error.getDefaultMessage());
             }
-            // если были ошибки, возвращаем и дальше не идем
+            // если были ошибки, возвращаем ошибки и дальше не идем
             return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
 
         }
-        // нет ошибок
+        // если нет ошибок
         return null;
 
     }

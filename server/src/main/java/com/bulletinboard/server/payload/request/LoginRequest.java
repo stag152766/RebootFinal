@@ -5,7 +5,9 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
-
+/**
+ * Класс для передачи объекта на сервер для авторизации
+ */
 @Data
 public class LoginRequest {
 

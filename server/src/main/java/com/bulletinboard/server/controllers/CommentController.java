@@ -18,6 +18,10 @@ import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Контроллер для управления комментарием
+ * Получает http запрос и передает json ответа на клиент
+ */
 @RestController
 @RequestMapping("api/comment")
 @CrossOrigin

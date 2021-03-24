@@ -12,10 +12,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Класс для созданиея и управления токеном
+ */
 @Component
 public class JWTTokenProvider {
     public static final Logger LOG = LoggerFactory.getLogger(JWTTokenProvider.class);
 
+    /**
+     * Метод для создания токена
+     *
+     * @param authentication
+     * @return
+     */
     public String generateToken(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         Date now = new Date(System.currentTimeMillis());
@@ -23,13 +32,14 @@ public class JWTTokenProvider {
 
         String userId = Long.toString(user.getId());
 
-        // данные юзера для генерации хеша
+        // Объект, использующий данные пользователя для генерации хеша
         Map<String, Object> claimsMap = new HashMap<>();
         claimsMap.put("id", userId);
         claimsMap.put("username", user.getEmail());
         claimsMap.put("firstname", user.getName());
         claimsMap.put("lastname", user.getLastname());
 
+        // Создаем токен
         return Jwts.builder()
                 .setSubject(userId)
                 .addClaims(claimsMap)
@@ -40,7 +50,13 @@ public class JWTTokenProvider {
 
     }
 
-    // декодирование токена
+    /**
+     * Метод для декодирования токена, парсинга и получения claims-объекта Пользователя
+     * (н-р, при получении запроса с клиента)
+     *
+     * @param token
+     * @return
+     */
     public boolean validateToken(String token) {
         try {
             Jwts.parser()
@@ -58,7 +74,9 @@ public class JWTTokenProvider {
 
     }
 
-
+    /**
+     * Вспомогательный метод для извлечения ИД пользователя из токена
+     */
     public Long getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(SecurityConstants.SECRET)

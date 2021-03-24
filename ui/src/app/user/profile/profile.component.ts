@@ -90,5 +90,10 @@ export class ProfileComponent implements OnInit {
     }
 
   }
+
+  // список избранных постов
+  openFavoritesPost(): void {
+
+  }
 }
 

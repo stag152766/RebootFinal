@@ -4,6 +4,10 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
+/**
+ * Объект для передачи на клиент
+ * Усеченная версия пользователя
+ */
 @Data
 public class UserDTO {
 

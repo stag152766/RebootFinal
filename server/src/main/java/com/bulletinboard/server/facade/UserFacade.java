@@ -5,6 +5,9 @@ import com.bulletinboard.server.dto.UserDTO;
 import com.bulletinboard.server.entity.User;
 import org.springframework.stereotype.Component;
 
+/**
+ * Класс для маппинга обычного объекта User и UserDTO
+ */
 @Component
 public class UserFacade {
     public UserDTO userToUserDTO(User user){

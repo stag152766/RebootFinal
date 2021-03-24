@@ -12,6 +12,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 
+/**
+ * Класс для передачи объекта на сервер для регистрации
+ */
 @Data
 @ValidPassword
 public class SignupRequest {

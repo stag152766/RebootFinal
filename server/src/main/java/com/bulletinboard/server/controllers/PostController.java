@@ -18,6 +18,10 @@ import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Контроллер для управления постом
+ * Получает http запрос и передает json ответа на клиент
+ */
 @RestController
 @RequestMapping("api/post")
 @CrossOrigin
@@ -31,6 +35,13 @@ public class PostController {
     private ResponseErrorValidation responseErrorValidation;
 
 
+    /**
+     * Метод создания нового поста
+     * @param postDTO
+     * @param bindingResult
+     * @param principal
+     * @return
+     */
     @PostMapping("/create")
     public ResponseEntity<Object> createPost(@Valid @RequestBody PostDTO postDTO,
                                              BindingResult bindingResult,
@@ -44,6 +55,10 @@ public class PostController {
         return new ResponseEntity<>(createPost, HttpStatus.OK);
     }
 
+    /**
+     * Метод для получения всех постов
+     * @return
+     */
     @GetMapping("/all")
     public ResponseEntity<List<PostDTO>> getAllPosts() {
         List<PostDTO> postDTOList = postService.getAllPosts()
@@ -55,6 +70,11 @@ public class PostController {
     }
 
 
+    /**
+     * Метод для получения всех постов пользователя
+     * @param principal
+     * @return
+     */
     @GetMapping("/user/posts")
     public ResponseEntity<List<PostDTO>> getAllPostForUser(Principal principal) {
         List<PostDTO> postDTOList = postService.getAllPostForUser(principal)
@@ -65,6 +85,12 @@ public class PostController {
         return new ResponseEntity<>(postDTOList, HttpStatus.OK);
     }
 
+    /**
+     * Метод для добавления поста в избранное
+     * @param postId
+     * @param username
+     * @return
+     */
     @PostMapping("/{postId}/{username}/favorite")
     public ResponseEntity<PostDTO> favoritePost(@PathVariable("postId") String postId,
                                                 @PathVariable("username") String username) {
@@ -75,12 +101,22 @@ public class PostController {
     }
 
 
+    /**
+     * Метод для удаления собственного поста
+     * @param postId
+     * @param principal
+     * @return
+     */
     @PostMapping("/{postId}/delete")
     public ResponseEntity<MessageResponse> deletePost(@PathVariable("postId") String postId, Principal principal) {
         postService.deletePost(Long.parseLong(postId), principal);
         return new ResponseEntity<>(new MessageResponse("Post was deleted"), HttpStatus.OK);
     }
 
+    /**
+     * Метод для получение избранных постов
+     * @return
+     */
     @GetMapping("user/favorites")
     public ResponseEntity<List<PostDTO>> getFavoritePostForUser(Principal principal){
         List<PostDTO> postDTOList = postService.getFavoritePostForUser(principal)

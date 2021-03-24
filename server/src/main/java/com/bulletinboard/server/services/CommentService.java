@@ -17,7 +17,9 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * Сервис для управления комментариями
+ */
 @Service
 public class CommentService {
 

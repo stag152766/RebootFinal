@@ -3,6 +3,9 @@ package com.bulletinboard.server.payload.response;
 
 import lombok.Data;
 
+/**
+ * Возвращаем объект
+ */
 @Data
 public class JWTTokenSuccessResponse {
 

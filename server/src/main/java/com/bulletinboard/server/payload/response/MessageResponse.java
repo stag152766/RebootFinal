@@ -2,6 +2,9 @@ package com.bulletinboard.server.payload.response;
 
 import lombok.Data;
 
+/**
+ * Сообщение от сервера
+ */
 @Data
 public class MessageResponse {
 

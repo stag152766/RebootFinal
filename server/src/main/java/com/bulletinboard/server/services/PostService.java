@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис для управления постом
+ */
 @Service
 public class PostService {
     public static final Logger LOG = LoggerFactory.getLogger(PostService.class);
@@ -73,7 +76,7 @@ public class PostService {
     // получить все избранные посты юзера
     public List<Post> getFavoritePostForUser(Principal principal) {
         User user = getUserByPrincipal(principal);
-        return postRepository.findAllByUserOrderByCreatedDateDesc(user)
+        return postRepository.findAllByOrderByCreatedDateDesc()
                 .stream()
                 .filter(p -> p.getFavoritedUsers().contains(user.getUsername()))
                 .collect(Collectors.toList());
@@ -93,7 +96,7 @@ public class PostService {
         // если есть, то удаляем
         if (usersFavorited.isPresent()) {
             post.getFavoritedUsers().remove(username);
-        // иначе добавляем в избранное
+            // иначе добавляем в избранное
         } else {
             post.getFavoritedUsers().add(username);
         }

@@ -4,7 +4,10 @@ import lombok.Data;
 
 import java.util.Set;
 
-
+/**
+ * Объект для передачи на клиент
+ * Усеченная версия поста
+ */
 @Data
 public class PostDTO {
     private Long id;

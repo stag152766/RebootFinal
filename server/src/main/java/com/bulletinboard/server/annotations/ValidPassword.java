@@ -1,10 +1,14 @@
 package com.bulletinboard.server.annotations;
 
 import com.bulletinboard.server.validations.PasswordValidator;
+
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
+/**
+ * Аннотация используется для валидации пароля
+ */
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = PasswordValidator.class)

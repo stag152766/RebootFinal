@@ -19,6 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
+
+/**
+ * Класс, который используется для перехвата запроса с клиента на сервер
+ * Объект внедряется между существующими фильтрами и выполняет парсинг токена из header,
+ * извлечения ИД и проверки пользователя в базе данных
+ */
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     public static final Logger LOG = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
@@ -29,7 +35,15 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
-    //
+    /**
+     * Метод перехватчик запроса, который вызывается каждый раз при поступлении запроса на сервер
+     * для проверки пользователя по токену
+     * @param httpServletRequest
+     * @param httpServletResponse
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try {
@@ -39,25 +53,29 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                 Long userId = jwtTokenProvider.getUserIdFromToken(jwt);
                 User userDetails = myUserDetailsService.loadUserById(userId);
 
-                // поиск юзера по ид
+                // поиск юзера по ИД
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, Collections.emptyList()
                 );
 
-
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
             }
         } catch (Exception ex) {
-            LOG.error("Could not set user authentication ");
+            LOG.error("Could not set user authentication");
         }
 
-        // добавление кастомного фильтра в цепочку стандартных фильтров
+        // добавление фильтра в цепочку стандартных фильтров
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
-    // извлекает токен из запроса, кот поступает на сервер
+
+    /**
+     * Вспомогательный метод, который извлекает токен из запроса клиента
+     *
+     * @param request
+     * @return
+     */
     private String getJWTFromRequest(HttpServletRequest request) {
         String bearToken = request.getHeader(SecurityConstants.HEADER_STRING);
         if (StringUtils.hasText(bearToken) && bearToken.startsWith(SecurityConstants.TOKEN_PREFIX)) {

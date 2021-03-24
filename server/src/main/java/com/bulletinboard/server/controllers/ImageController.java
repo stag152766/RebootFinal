@@ -12,6 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 
+/**
+ * Контроллер для управления изображением
+ * Получает http запрос и передает json ответа на клиент
+ */
 @RestController
 @RequestMapping("api/image")
 @CrossOrigin

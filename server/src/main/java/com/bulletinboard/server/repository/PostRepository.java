@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Сервис для получение и сохранения постов в базе данных
+ */
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 

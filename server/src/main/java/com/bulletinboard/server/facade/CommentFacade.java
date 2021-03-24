@@ -5,6 +5,9 @@ import com.bulletinboard.server.dto.CommentDTO;
 import com.bulletinboard.server.entity.Comment;
 import org.springframework.stereotype.Component;
 
+/**
+ * Класс для маппинга обычного объекта Comment и CommentDTO
+ */
 @Component
 public class CommentFacade {
 

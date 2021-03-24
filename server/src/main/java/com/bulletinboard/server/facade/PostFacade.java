@@ -4,6 +4,9 @@ import com.bulletinboard.server.dto.PostDTO;
 import com.bulletinboard.server.entity.Post;
 import org.springframework.stereotype.Component;
 
+/**
+ * Класс для маппинга обычного объекта Post и PostDTO
+ */
 @Component
 public class PostFacade {
 

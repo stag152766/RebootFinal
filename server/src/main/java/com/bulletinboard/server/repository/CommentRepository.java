@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Сервис для получение и сохранения комментариев в базе данных
+ */
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 

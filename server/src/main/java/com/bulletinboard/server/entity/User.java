@@ -10,43 +10,78 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-
+/**
+ * Класс для репрезинтации объекта Пользователь в базе данных
+ */
 @Data
 @Entity
 public class User implements UserDetails {
 
+    /**
+     * Аннотации для валидации, которые выполняются при записи в базу данных
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private String name;
+    /**
+     * Уникальный никнейм, используется для трекинга
+     * (например, кто добавил в избранное)
+     */
     @Column(unique = true, updatable = false)
     private String username;
+    /**
+     * Имя пользователя
+     */
+    @Column(nullable = false)
+    private String name;
+    /**
+     * Фамилия пользователя
+     */
     @Column(nullable = false)
     private String lastname;
+    /**
+     * Электронная почта, используется для логина (уникальное значение)
+     */
     @Column(unique = true)
     private String email;
+    /**
+     * Допольнительная информация
+     */
     @Column(columnDefinition = "text")
     private String bio;
+    /**
+     * Пароль закодирован перед записью в базе данных
+     */
     @Column(length = 3000)
     private String password;
 
-
+    /**
+     * Допускается наличие нескольких ролей у пользователя
+     * Связи пользователь-роли хранятся в отдельной таблице
+     */
     @ElementCollection(targetClass = ERole.class)
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"))
     private Set<ERole> roles = new HashSet<>();
 
-    // LAZY - отложенная загрузка постов для юзера
-    // ALL - для всех операций из перечисления
+    /**
+     * Посты, созданные пользователем
+     * ALL - для всех операций из перечисления (например, при удалении пользователя, все его посты удаляются)
+     * LAZY - отложенная загрузка постов (при необходимости загружаем по get)
+     */
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "user", orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
+    /**
+     * Время создания поста
+     */
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     @Column(updatable = false)
     private LocalDateTime createdDate;
+
+
 
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
@@ -66,6 +101,10 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
+    /**
+     * Вспомогательный метод, который задает значение атрибуту @createdDate
+     * до записи объекта в базу данных
+     */
     @PrePersist
     protected void onCreate() {
         this.createdDate = LocalDateTime.now();
