@@ -64,11 +64,13 @@ public class PostService {
     }
 
 
+    // получить все посты, созданные юзером
     public List<Post> getAllPostForUser(Principal principal) {
         User user = getUserByPrincipal(principal);
         return postRepository.findAllByUserOrderByCreatedDateDesc(user);
     }
 
+    // получить все избранные посты юзера
     public List<Post> getFavoritePostForUser(Principal principal) {
         User user = getUserByPrincipal(principal);
         return postRepository.findAllByUserOrderByCreatedDateDesc(user)
@@ -77,21 +79,22 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-
+    // добавление поста в изранное
     public Post favoritePost(Long postId, String username) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException("Post cannot be found"));
 
+        // проверка поста в избранном
         Optional<String> usersFavorited = post.getFavoritedUsers()
                 .stream()
                 .filter(u -> u.equals(username))
                 .findAny();
 
+        // если есть, то удаляем
         if (usersFavorited.isPresent()) {
-            post.setFavorites(post.getFavorites() - 1);
             post.getFavoritedUsers().remove(username);
+        // иначе добавляем в избранное
         } else {
-            post.setFavorites(post.getFavorites() + 1);
             post.getFavoritedUsers().add(username);
         }
         return postRepository.save(post);

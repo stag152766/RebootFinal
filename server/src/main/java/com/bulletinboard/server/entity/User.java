@@ -37,7 +37,8 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"))
     private Set<ERole> roles = new HashSet<>();
 
-
+    // LAZY - отложенная загрузка постов для юзера
+    // ALL - для всех операций из перечисления
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "user", orphanRemoval = true)

@@ -23,7 +23,7 @@ public class JWTTokenProvider {
 
         String userId = Long.toString(user.getId());
 
-
+        // данные юзера для генерации хеша
         Map<String, Object> claimsMap = new HashMap<>();
         claimsMap.put("id", userId);
         claimsMap.put("username", user.getEmail());
@@ -40,7 +40,7 @@ public class JWTTokenProvider {
 
     }
 
-
+    // декодирование токена
     public boolean validateToken(String token) {
         try {
             Jwts.parser()

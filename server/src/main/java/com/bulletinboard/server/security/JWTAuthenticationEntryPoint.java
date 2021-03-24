@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/* Класс для обработки ошибки авторизации
+   Если юзер не авторизован, то ловим и возвращаем код 401
+ */
 @Component
 public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

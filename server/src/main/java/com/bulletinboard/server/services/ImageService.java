@@ -48,11 +48,12 @@ public class ImageService {
 
         ImageModel userProfileImage = imageRepository.findByUserId(user.getId()).orElse(null);
 
+        // если у юзера есть фото, то удалить
         if (!ObjectUtils.isEmpty(userProfileImage)) {
             imageRepository.delete(userProfileImage);
         }
 
-
+        // загрузка нового фото
         ImageModel imageModel = new ImageModel();
         imageModel.setUserId(user.getId());
         imageModel.setImageBytes(compressBytes(file.getBytes()));
@@ -102,6 +103,7 @@ public class ImageService {
     }
 
 
+    // сжать фото до записи в бд
     private byte[] compressBytes(byte[] data) {
         Deflater deflater = new Deflater();
         deflater.setInput(data);
@@ -120,6 +122,8 @@ public class ImageService {
         System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
         return outputStream.toByteArray();
     }
+
+
 
     private static byte[] decompressBytes(byte[] data) {
         Inflater inflater = new Inflater();

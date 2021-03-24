@@ -32,7 +32,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-
+    // сохранение юзера по данным с клиента
     public User createUser(SignupRequest userIn){
         User user = new User();
         user.setEmail(userIn.getEmail());
@@ -52,6 +52,14 @@ public class UserService {
     }
 
 
+    // Principal объект security, кот содержит данные юзера
+    private User getUserByPrincipal(Principal principal){
+        String username = principal.getName();
+        return userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found with username " + username));
+
+    }
+
     public User updateUser(UserDTO userDTO, Principal principal){
         User user = getUserByPrincipal(principal);
         user.setName(userDTO.getFirstname());
@@ -65,13 +73,6 @@ public class UserService {
 
     public User getCurrentUser(Principal principal){
         return getUserByPrincipal(principal);
-    }
-
-    private User getUserByPrincipal(Principal principal){
-        String username = principal.getName();
-        return userRepository.findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found with username " + username));
-
     }
 
     public User getUserById(Long userId) {

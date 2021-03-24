@@ -26,7 +26,8 @@ public class Post {
     private Set<String> favoritedUsers = new HashSet<>();
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
+    // EAGER для загрузки всех комментов, когда загружается пост
+    // REFRESH для удаления комментов, когда удаляется пост
     @OneToMany(cascade = CascadeType.REFRESH,
             fetch = FetchType.EAGER, mappedBy = "post", orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();

@@ -29,17 +29,17 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
-
+    //
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try {
             String jwt = getJWTFromRequest(httpServletRequest);
-
+            // парсинг и валидация токена для извлечения ид юзера
             if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
                 Long userId = jwtTokenProvider.getUserIdFromToken(jwt);
                 User userDetails = myUserDetailsService.loadUserById(userId);
 
-
+                // поиск юзера по ид
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, Collections.emptyList()
                 );
@@ -53,10 +53,11 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             LOG.error("Could not set user authentication ");
         }
 
+        // добавление кастомного фильтра в цепочку стандартных фильтров
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
-
+    // извлекает токен из запроса, кот поступает на сервер
     private String getJWTFromRequest(HttpServletRequest request) {
         String bearToken = request.getHeader(SecurityConstants.HEADER_STRING);
         if (StringUtils.hasText(bearToken) && bearToken.startsWith(SecurityConstants.TOKEN_PREFIX)) {

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// Вспомогательный класс для поиска данных из бд
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
@@ -25,7 +26,6 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
 
-
     @Override
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findUserByEmail(username)
@@ -34,7 +34,7 @@ public class MyUserDetailsService implements UserDetailsService {
         return build(user);
     }
 
-    public User loadUserById(Long id){
+    public User loadUserById(Long id) {
         return userRepository.findUserById(id).orElse(null);
     }
 
