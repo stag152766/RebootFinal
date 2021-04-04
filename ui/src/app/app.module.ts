@@ -18,6 +18,9 @@ import { UserPostsComponent } from './user/user-posts/user-posts.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { AddPostComponent } from './user/add-post/add-post.component';
 import { FavoritePostsComponent } from './user/favorite-posts/favorite-posts.component';
+import {MatSelectModule} from "@angular/material/select";
+import {FilterPipe} from "./layout/filter.pipe";
+
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { FavoritePostsComponent } from './user/favorite-posts/favorite-posts.com
     UserPostsComponent,
     EditUserComponent,
     AddPostComponent,
-    FavoritePostsComponent
+    FavoritePostsComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -38,8 +42,9 @@ import { FavoritePostsComponent } from './user/favorite-posts/favorite-posts.com
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    ReactiveFormsModule, // вся инициализаия происходит не в шаблоне, а программно в компоненте для более гибкой настройки
+    HttpClientModule,
+    MatSelectModule
   ],
   providers: [authInterceptorProviders, authErrorInterceptorProviders],
   bootstrap: [AppComponent]

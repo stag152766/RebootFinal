@@ -2,6 +2,7 @@ package com.bulletinboard.server.services;
 
 
 import com.bulletinboard.server.dto.PostDTO;
+import com.bulletinboard.server.entity.Category;
 import com.bulletinboard.server.entity.ImageModel;
 import com.bulletinboard.server.entity.Post;
 import com.bulletinboard.server.entity.User;
@@ -39,7 +40,14 @@ public class PostService {
         this.imageRepository = imageRepository;
     }
 
-
+    /**
+     * Метод для создания поста в базе
+     * Из principal извлекается автор
+     * Из postDTO данные с клиента, которые ввел пользователь
+     * @param postDTO
+     * @param principal
+     * @return
+     */
     public Post createPost(PostDTO postDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
         Post post = new Post();
@@ -48,6 +56,7 @@ public class PostService {
         post.setLocation(postDTO.getLocation());
         post.setTitle(postDTO.getTitle());
         post.setFavorites(0);
+        post.setCategory(postDTO.getCategory());
 
         LOG.info("Saving Post for User: {}", user.getEmail());
         return postRepository.save(post);
@@ -116,5 +125,17 @@ public class PostService {
         return userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found with username " + username));
 
+    }
+
+    /**
+     * Метод для получения списка постов по категории из БД
+     * @param categoryId ИД категории (вносится вручную в БД)
+     * @return список постов
+     */
+    public List<Post> getPostByCategory(Long categoryId){
+        return postRepository.findAllByOrderByCreatedDateDesc()
+                .stream()
+                .filter(p -> p.getCategory().getId().equals(categoryId))
+                .collect(Collectors.toList());
     }
 }

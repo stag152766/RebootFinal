@@ -4,9 +4,13 @@
   </div>
 
   <h2>Create Post</h2>
+
   <form [formGroup]="postForm">
 
-    <img class="post-image" [src]="previewImgURL || 'https://cdn3.iconfinder.com/data/icons/email-133/32/Email_letter_communication_post-512.png'" alt="user image">
+
+    <img class="post-image"
+         [src]="previewImgURL || 'https://cdn3.iconfinder.com/data/icons/email-133/32/Email_letter_communication_post-512.png'"
+         alt="user image">
 
     <input type="file"
            style="display: none"
@@ -30,6 +34,16 @@
       <input matInput
              formControlName="location">
     </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Category</mat-label>
+      <mat-select [(value)]="selectedCategory">
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{category.categoryName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
 
     <div style="text-align: right">
       <button mat-flat-button color="primary" [disabled]="postForm.invalid" (click)="submit()">

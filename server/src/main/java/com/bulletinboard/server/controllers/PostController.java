@@ -1,6 +1,7 @@
 package com.bulletinboard.server.controllers;
 
 import com.bulletinboard.server.dto.PostDTO;
+import com.bulletinboard.server.entity.Category;
 import com.bulletinboard.server.entity.Post;
 import com.bulletinboard.server.facade.PostFacade;
 import com.bulletinboard.server.payload.response.MessageResponse;
@@ -36,7 +37,7 @@ public class PostController {
 
 
     /**
-     * Метод создания нового поста
+     * Метод для создания нового поста
      * @param postDTO
      * @param bindingResult
      * @param principal
@@ -127,5 +128,16 @@ public class PostController {
         return new ResponseEntity<>(postDTOList, HttpStatus.OK);
     }
 
+    /**
+     * Метод для получения постов определенной категории
+     */
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<PostDTO>> getPostByCategory(@PathVariable("categoryId") String categoryId){
+        List<PostDTO> postDTOList = postService.getPostByCategory(Long.parseLong(categoryId))
+                .stream()
+                .map(postFacade::postToPostDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(postDTOList, HttpStatus.OK);
+    }
 
 }

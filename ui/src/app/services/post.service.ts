@@ -38,5 +38,4 @@ export class PostService {
     return this.http.post(POST_API + id + '/' + username + '/favorite', null);
   }
 
-
 }

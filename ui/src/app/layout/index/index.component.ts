@@ -6,6 +6,9 @@ import {UserService} from "../../services/user.service";
 import {CommentService} from "../../services/comment.service";
 import {NotificationService} from "../../services/notification.service";
 import {ImageService} from "../../services/image.service";
+import {Category} from "../../models/Category";
+import {NavigationComponent} from "../navigation/navigation.component";
+import {CategoryService} from "../../services/category.service";
 
 @Component({
   selector: 'app-index',
@@ -18,13 +21,18 @@ export class IndexComponent implements OnInit {
   posts: Post[];
   user: User;
   isUserDataLoaded = false;
+  categories: Category[];
+  categoryGroupSelected: Category;
+
+
 
   constructor(
     private postService: PostService,
     private userService: UserService,
     private commentService: CommentService,
     private notificationService: NotificationService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private categoryService: CategoryService
   ) {
   }
 
@@ -35,7 +43,6 @@ export class IndexComponent implements OnInit {
         this.posts = data;
         this.getImagesToPosts(this.posts);
         this.getCommentsToPosts(this.posts);
-
         this.isPostsLoaded = true;
       });
 
@@ -45,6 +52,14 @@ export class IndexComponent implements OnInit {
         this.user = data;
         this.isUserDataLoaded = true;
       });
+
+    this.categoryService.getCategories()
+      .subscribe(data => {
+        this.categories = data;
+          console.log(data);
+
+        }
+      )
   }
 
 

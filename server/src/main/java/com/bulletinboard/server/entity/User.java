@@ -83,6 +83,7 @@ public class User implements UserDetails {
 
 
 
+
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
 

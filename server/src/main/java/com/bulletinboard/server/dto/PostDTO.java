@@ -1,5 +1,6 @@
 package com.bulletinboard.server.dto;
 
+import com.bulletinboard.server.entity.Category;
 import lombok.Data;
 
 import java.util.Set;
@@ -16,5 +17,6 @@ public class PostDTO {
     private String location;
     private String username;
     private Set<String> usersFavorited;
+    private Category category;
 
 }

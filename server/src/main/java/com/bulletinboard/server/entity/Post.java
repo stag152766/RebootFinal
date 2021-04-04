@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 /**
  * Класс для репрезинтации объекта Пост в базе данных
  */
@@ -20,7 +21,7 @@ public class Post {
     private Long id;
     /**
      * Заголовок поста
-      */
+     */
     private String title;
     /**
      * Краткое описание
@@ -40,10 +41,14 @@ public class Post {
     @Column
     @ElementCollection(targetClass = String.class)
     private Set<String> favoritedUsers = new HashSet<>();
+    /**
+     * Автор поста
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     /**
      * Список комментариев к посту
+     *
      * @EAGER используется для загрузки всех комментов, когда загружается пост
      * @REFRESH для удаления комментов, когда удаляется пост
      */
@@ -55,13 +60,18 @@ public class Post {
      */
     @Column(updatable = false)
     private LocalDateTime createdDate;
+    /**
+     * Категория поста
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Category category;
 
     /**
      * Вспомогательный метод, который задает значение атрибуту @createdDate
      * до записи объекта в базу данных
      */
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         this.createdDate = LocalDateTime.now();
     }
 

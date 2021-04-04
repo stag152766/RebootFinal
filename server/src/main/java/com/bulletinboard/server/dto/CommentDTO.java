@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
  * Усеченная версия комметария
  */
 @Data
-public class CommentDTO {
+public class  CommentDTO {
 
     private Long id;
     @NotEmpty

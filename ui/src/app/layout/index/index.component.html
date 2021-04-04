@@ -1,12 +1,23 @@
 <div *ngIf="isPostsLoaded && isUserDataLoaded" class="index-page">
-  <mat-card class="post-card" *ngFor="let post of posts; let i = index">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Category</mat-label>
+    <mat-select [(ngModel)]="categoryGroupSelected">
+      <mat-option>All</mat-option>
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{category.categoryName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-card class="post-card" *ngFor="let post of posts | filterPosts:categoryGroupSelected; let i = index">
     <mat-card-header style="text-align: left">
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>{{post.title}}</mat-card-title>
       <mat-card-subtitle>{{post.location}}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="formatImage(post.image)" alt="post image">
-    <mat-card-subtitle align="start">Posted by {{post.username}}</mat-card-subtitle>
+    <mat-card-subtitle align="start">Posted by {{post.username}} </mat-card-subtitle>
     <mat-card-content>
       <p>{{post.caption}}</p>
     </mat-card-content>
@@ -14,7 +25,7 @@
     <mat-card-actions align="start">
 
       <button *ngIf="isUserDataLoaded" mat-button (click)="favoritePost(post.id, i)"
-       [ngClass]="post.usersFavorited.indexOf(user.username) !== -1 ? 'is-favorite' : 'not-favorite'">
+              [ngClass]="post.usersFavorited.indexOf(user.username) !== -1 ? 'is-favorite' : 'not-favorite'">
         <mat-icon>favorite</mat-icon>
         Favorite
       </button>
@@ -32,4 +43,5 @@
     </mat-form-field>
 
   </mat-card>
+
 </div>
