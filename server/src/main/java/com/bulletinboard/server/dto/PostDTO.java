@@ -18,5 +18,6 @@ public class PostDTO {
     private String username;
     private Set<String> usersFavorited;
     private Category category;
+    private Integer price;
 
 }

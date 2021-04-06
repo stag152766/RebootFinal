@@ -11,4 +11,5 @@ export interface Post {
   comments?: Comment [];
   username?: string;
   category: Category;
+  price: number;
 }

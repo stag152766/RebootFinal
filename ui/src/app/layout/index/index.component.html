@@ -14,6 +14,8 @@
     <mat-card-header style="text-align: left">
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>{{post.title}}</mat-card-title>
+      <mat-card-title>{{ post.price | currency }}</mat-card-title>
+
       <mat-card-subtitle>{{post.location}}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="formatImage(post.image)" alt="post image">
@@ -23,13 +25,17 @@
     </mat-card-content>
 
     <mat-card-actions align="start">
-
       <button *ngIf="isUserDataLoaded" mat-button (click)="favoritePost(post.id, i)"
               [ngClass]="post.usersFavorited.indexOf(user.username) !== -1 ? 'is-favorite' : 'not-favorite'">
         <mat-icon>favorite</mat-icon>
         Favorite
       </button>
+      <button *ngIf="isUserDataLoaded" mat-button (click)="openDialog()">
+        <mat-icon>reply</mat-icon>
+        Reply
+      </button>
     </mat-card-actions>
+
 
     <div style="text-align: left">
       <p *ngFor="let comment of post.comments"><span

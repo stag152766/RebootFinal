@@ -57,6 +57,7 @@ public class PostService {
         post.setTitle(postDTO.getTitle());
         post.setFavorites(0);
         post.setCategory(postDTO.getCategory());
+        post.setPrice(postDTO.getPrice());
 
         LOG.info("Saving Post for User: {}", user.getEmail());
         return postRepository.save(post);

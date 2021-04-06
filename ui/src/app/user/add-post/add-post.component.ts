@@ -46,6 +46,7 @@ export class AddPostComponent implements OnInit {
       title: ['', Validators.compose([Validators.required])],
       caption: ['', Validators.compose([Validators.required])],
       location: ['', Validators.compose([Validators.required])],
+      price: ['', Validators.compose([Validators.required])],
       categories: this.categoryService.getCategories()
         .subscribe(data => {
             console.log(data);
@@ -65,19 +66,21 @@ export class AddPostComponent implements OnInit {
       title: this.postForm.value.title,
       caption: this.postForm.value.caption,
       location: this.postForm.value.location,
-      category: this.selectedCategory
+      category: this.selectedCategory,
+      price: this.postForm.value.price
     }).subscribe(data => {
       this.createdPost = data; // создали пост и получили обратно объект из бд
       console.log('Post created');
-      console.log('PostDTO ',data);
+      console.log('PostDTO ', data);
 
       const formData = {
         title: this.postForm.value.title,
-          caption: this.postForm.value.caption,
-          location: this.postForm.value.location,
-          category: this.selectedCategory}
+        caption: this.postForm.value.caption,
+        location: this.postForm.value.location,
+        category: this.selectedCategory,
+        price: this.postForm.value.price
+      }
       console.log('Form data ', formData)
-
 
 
       // если получили ид с сервера, значит пост создан

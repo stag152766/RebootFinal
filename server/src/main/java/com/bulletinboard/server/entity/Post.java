@@ -65,6 +65,10 @@ public class Post {
      */
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
+    /**
+     * Стоимость товара
+     */
+    private Integer price;
 
     /**
      * Вспомогательный метод, который задает значение атрибуту @createdDate
