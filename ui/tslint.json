@@ -148,5 +148,14 @@
       "app",
       "kebab-case"
     ]
-  }
+  },
+  "nx-enforce-module-boundaries": [
+    true,
+    {
+      "lazyLoad": [
+        "admin"
+      ],
+      "allow": []
+    }
+  ]
 }

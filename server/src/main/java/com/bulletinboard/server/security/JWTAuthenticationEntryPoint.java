@@ -30,7 +30,9 @@ public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
      * @throws ServletException
      */
     @Override
-    public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+    public void commence(HttpServletRequest httpServletRequest,
+                         HttpServletResponse httpServletResponse,
+                         AuthenticationException e) throws IOException, ServletException {
         // создание объекта в случае 401
         InvalidLoginResponse loginResponse = new InvalidLoginResponse();
         String jsonLoginResponse = new Gson().toJson(loginResponse);

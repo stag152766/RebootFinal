@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from "./auth/login/login.component";
 import {RegisterComponent} from "./auth/register/register.component";
 import {IndexComponent} from "./layout/index/index.component";
@@ -21,15 +21,18 @@ const routes: Routes = [
     children: [
       {path: '', component: UserPostsComponent, canActivate: [AuthGuardService]},
       {path: 'add', component: AddPostComponent, canActivate: [AuthGuardService]},
-      {path: 'favorites', component: FavoritePostsComponent, canActivate: [AuthGuardService]}
+      {path: 'favorites', component: FavoritePostsComponent, canActivate: [AuthGuardService], data: {roles: ["ROLE_ADMIN"]}}
     ]
   },
+  {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
   {path: '', redirectTo: 'main', pathMatch: 'full'} // если урл не существует (должен быть последним)
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

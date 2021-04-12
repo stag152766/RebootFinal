@@ -5,5 +5,6 @@ export interface User {
   firstname: string;
   lastname: string;
   bio: string;
+  role: number;
 
 }

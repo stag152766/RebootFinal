@@ -1,8 +1,11 @@
 package com.bulletinboard.server.dto;
 
+import com.bulletinboard.server.entity.Role;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.Set;
+
 
 /**
  * Объект для передачи на клиент
@@ -18,4 +21,5 @@ public class UserDTO {
     @NotEmpty
     private String lastname;
     private String bio;
+    private Set<Role> roles;
 }

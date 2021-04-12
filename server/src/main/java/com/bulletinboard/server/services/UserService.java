@@ -3,7 +3,6 @@ package com.bulletinboard.server.services;
 
 import com.bulletinboard.server.dto.UserDTO;
 import com.bulletinboard.server.entity.User;
-import com.bulletinboard.server.entity.enums.ERole;
 import com.bulletinboard.server.exception.UserExistingException;
 import com.bulletinboard.server.payload.request.SignupRequest;
 import com.bulletinboard.server.repository.UserRepository;
@@ -49,7 +48,7 @@ public class UserService {
         user.setLastname(userIn.getLastname());
         user.setUsername(userIn.getUsername());
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
-        user.getRoles().add(ERole.ROLE_USER);
+
 
         // запись в базу
         try {

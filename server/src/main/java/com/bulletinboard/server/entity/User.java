@@ -1,14 +1,15 @@
 package com.bulletinboard.server.entity;
 
-import com.bulletinboard.server.entity.enums.ERole;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Класс для репрезинтации объекта Пользователь в базе данных
@@ -17,15 +18,12 @@ import java.util.*;
 @Entity
 public class User implements UserDetails {
 
-    /**
-     * Аннотации для валидации, которые выполняются при записи в базу данных
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * Уникальный никнейм, используется для трекинга
-     * (например, кто добавил в избранное)
+     * (например, показывает кто добавил в избранное)
      */
     @Column(unique = true, updatable = false)
     private String username;
@@ -50,19 +48,21 @@ public class User implements UserDetails {
     @Column(columnDefinition = "text")
     private String bio;
     /**
-     * Пароль закодирован перед записью в базе данных
+     * Пароль
      */
     @Column(length = 3000)
     private String password;
-
     /**
      * Допускается наличие нескольких ролей у пользователя
      * Связи пользователь-роли хранятся в отдельной таблице
      */
-    @ElementCollection(targetClass = ERole.class)
-    @CollectionTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"))
-    private Set<ERole> roles = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     /**
      * Посты, созданные пользователем
@@ -82,26 +82,6 @@ public class User implements UserDetails {
     private LocalDateTime createdDate;
 
 
-
-
-    @Transient
-    private Collection<? extends GrantedAuthority> authorities;
-
-    public User() {
-    }
-
-    public User(Long id,
-                String username,
-                String email,
-                String password,
-                Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.authorities = authorities;
-    }
-
     /**
      * Вспомогательный метод, который задает значение атрибуту @createdDate
      * до записи объекта в базу данных
@@ -113,12 +93,15 @@ public class User implements UserDetails {
 
 
     /**
+     * Метод возвращает список ролей
      * SECURITY
      */
-
     @Override
-    public String getPassword() {
-        return password;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
+        return authorities;
     }
 
     @Override
@@ -140,8 +123,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
 }
 
 

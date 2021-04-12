@@ -109,3 +109,37 @@ B
 ui/package.json,9\9\998319707c93702a066e9b4b7250dbc0f50f1268
 l
 <ui/out-tsc/app/app/layout/navigation/navigation.component.js,3\3\33cc0adfbfeada20f51c71b531bb81e69abc81c8
+W
+'ui/src/app/services/category.service.ts,f\b\fb048f5e82ab317bcfe62c86132302b94c2bc829
+P
+ ui/src/app/layout/filter.pipe.ts,f\f\ff39c83e12f8c68163d1471838558f02e804d034
+d
+4ui/src/app/admin/login-page/login-page.component.css,c\2\c2b0b6c8eb0584abfb53f9ba0139554332f0b9e7
+>
+ui/tslint.json,9\b\9b45b40932e7c313888476ab6c46926f7f073cd8
+t
+Dui/src/app/admin/components/admin-layout/admin-layout.component.html,6\b\6b2da43b2698d133af867b682c8871c02b21386a
+s
+Cui/src/app/admin/components/admin-layout/admin-layout.component.css,0\0\0000eb1afc03631397672c3b814de5f9a70322b1
+D
+ui/tsconfig.app.json,e\5\e550002c89d1de45c853fa94bffad8148edb5a11
+e
+5ui/src/app/admin/login-page/login-page.component.html,7\7\7770c7561c44d63776d96d9231f4e3ac3f0c79f3
+c
+3ui/src/app/admin/login-page/login-page.component.ts,9\4\94c2916744392e651d4e1d62edf2b5af42a7f98f
+@
+ui/tsconfig.json,3\4\3483adfcead9c93147bf563c701f5b6725b58a49
+l
+<ui/src/app/admin/dashboard-page/dashboard-page.component.css,0\c\0c10d20b2066bb315c440c099558dcd0c9a8db4f
+k
+;ui/src/app/admin/dashboard-page/dashboard-page.component.ts,c\9\c9878fc98f6896ee1b4971968b13ca6215f2639c
+`
+0ui/out-tsc/app/app/auth/login/login.component.js,1\d\1db9a1283732539d48536bc49525b1afaee25c2c
+m
+=ui/src/app/admin/dashboard-page/dashboard-page.component.html,9\8\989b4f7280cc37c4ef272dd83f8f15c21344df8e
+P
+ ui/src/app/admin/admin.module.ts,0\7\07580cbc8933eca58ccc3451e33d19ddbb71b0e7
+r
+Bui/src/app/admin/components/admin-layout/admin-layout.component.ts,9\2\92b2f037373a2019766f2cfa6e4226910c76f68e
+_
+/ui/src/app/services/auth-admin-guard.service.ts,3\4\34d5a40e6d9ae78c7cff7f0c78d9dbeeec26886a

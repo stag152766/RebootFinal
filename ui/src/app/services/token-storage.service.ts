@@ -3,7 +3,10 @@ import {Injectable} from '@angular/core';
 const TOKEN_KEY = 'auth_token';
 const USER_KEY = 'auth_user';
 
-
+/**
+ * Сервис, кот получает токен с сервера при авторизации
+ * и хранит его в памяти браузера
+ */
 @Injectable({
   providedIn: 'root'
 })

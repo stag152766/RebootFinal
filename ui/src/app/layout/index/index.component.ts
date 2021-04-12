@@ -7,7 +7,6 @@ import {CommentService} from "../../services/comment.service";
 import {NotificationService} from "../../services/notification.service";
 import {ImageService} from "../../services/image.service";
 import {Category} from "../../models/Category";
-import {NavigationComponent} from "../navigation/navigation.component";
 import {CategoryService} from "../../services/category.service";
 
 @Component({

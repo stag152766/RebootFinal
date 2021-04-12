@@ -5,7 +5,9 @@ import {Observable} from "rxjs";
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
-
+/**
+ * Сервис, кот подставляет токен в хеддер запроса
+ */
 @Injectable({
   providedIn: 'root'
 })

@@ -2,7 +2,6 @@ package com.bulletinboard.server.controllers;
 
 import com.bulletinboard.server.payload.request.LoginRequest;
 import com.bulletinboard.server.payload.request.SignupRequest;
-
 import com.bulletinboard.server.payload.response.JWTTokenSuccessResponse;
 import com.bulletinboard.server.payload.response.MessageResponse;
 import com.bulletinboard.server.security.JWTTokenProvider;
@@ -50,7 +49,8 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signin")
-    public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) {
+    public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
+                                                   BindingResult bindingResult) {
         // если есть ошибки, то возвращаем их и прекращаем авторизацию
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;

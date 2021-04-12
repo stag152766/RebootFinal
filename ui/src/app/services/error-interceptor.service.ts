@@ -5,6 +5,9 @@ import {TokenStorageService} from "./token-storage.service";
 import {NotificationService} from "./notification.service";
 import {catchError} from "rxjs/operators";
 
+/**
+ * Сервис для обработки ошибок при авторизации
+ */
 @Injectable({
   providedIn: 'root'
 })

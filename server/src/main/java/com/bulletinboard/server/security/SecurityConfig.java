@@ -33,30 +33,44 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
+    @Bean
+    BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public JWTAuthenticationFilter jwtAuthenticationFilter() {
+        return new JWTAuthenticationFilter();
+    }
+
+
     /**
      * Метод который будет разбираться (handling) с ошибкой
      * Разрашаем всем запросам на /api/auth/*** иметь доступ к API,
+     * к /admin/** иметь доступ с ролью ROLE_ADMIN
      * все остальные должны быть авторизованы
+     *
      * @param http
      * @throws Exception
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and() // кто отвечает за ошибки
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() //  отказ от авторизации через сессии, в пользу токена JWT
                 .authorizeRequests()
-                .antMatchers(SecurityConstants.SING_UP_URLS)
-                .permitAll()
-                .anyRequest().authenticated();
-
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                .antMatchers(SecurityConstants.SING_UP_URLS).permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest()
+                .authenticated()
+        ;
+        // фильтр для аутентификации с помощью токена
+        //http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     /**
      * Метод для кодирования пароля перед записью в базу
+     *
      * @param auth
      * @throws Exception
      */
@@ -69,17 +83,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
-    }
-
-
-    @Bean
-    BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public JWTAuthenticationFilter jwtAuthenticationFilter() {
-        return new JWTAuthenticationFilter();
     }
 
 

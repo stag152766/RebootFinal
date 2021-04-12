@@ -4,7 +4,7 @@ package com.bulletinboard.server.payload.response;
 import lombok.Data;
 
 /**
- * Возвращаем объект
+ * Возвращаем объект токена
  */
 @Data
 public class JWTTokenSuccessResponse {
@@ -12,9 +12,11 @@ public class JWTTokenSuccessResponse {
     private boolean success;
     private String token;
 
+
     public JWTTokenSuccessResponse(boolean success, String token) {
         this.success = success;
         this.token = token;
+
     }
 }
 

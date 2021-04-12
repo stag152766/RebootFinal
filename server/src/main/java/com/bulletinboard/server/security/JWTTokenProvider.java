@@ -27,6 +27,7 @@ public class JWTTokenProvider {
      */
     public String generateToken(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
+
         Date now = new Date(System.currentTimeMillis());
         Date expiryDate = new Date(now.getTime() + SecurityConstants.EXPIRATION_TIME);
 

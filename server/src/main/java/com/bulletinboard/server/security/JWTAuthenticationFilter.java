@@ -22,7 +22,7 @@ import java.util.Collections;
 
 /**
  * Класс, который используется для перехвата запроса с клиента на сервер
- * Объект внедряется между существующими фильтрами и выполняет парсинг токена из header,
+ * Объект внедряется между существующими фильтрами и выполняет парсинг токена из header запроса,
  * извлечения ИД и проверки пользователя в базе данных
  */
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
@@ -45,7 +45,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
      * @throws IOException
      */
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest httpServletRequest,
+                                    HttpServletResponse httpServletResponse,
+                                    FilterChain filterChain)
+            throws ServletException, IOException {
         try {
             String jwt = getJWTFromRequest(httpServletRequest);
             // парсинг и валидация токена для извлечения ид юзера
