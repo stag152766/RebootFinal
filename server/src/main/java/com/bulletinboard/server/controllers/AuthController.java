@@ -28,7 +28,7 @@ import javax.validation.Valid;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/auth")
-@PreAuthorize("permitAll()")
+@PreAuthorize("permitAll()") // Ограничивает доступ к методам перед их вызовом, опираясь на результат вычисления выражения
 public class AuthController {
 
     @Autowired
@@ -44,8 +44,8 @@ public class AuthController {
     /**
      * Метод для обработки запроса на авторизацию
      * Использует кастомную валидацию mapValidationService
-     * @param loginRequest
-     * @param bindingResult
+     * @param loginRequest объект с полями логин, пароль
+     * @param bindingResult приходит из валидации спринга
      * @return
      */
     @PostMapping("/signin")
@@ -78,7 +78,8 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signup")
-    public ResponseEntity<Object> registerUser(@Valid @RequestBody SignupRequest signupRequest, BindingResult bindingResult) {
+    public ResponseEntity<Object> registerUser(@Valid @RequestBody SignupRequest signupRequest,
+                                               BindingResult bindingResult) {
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;
 

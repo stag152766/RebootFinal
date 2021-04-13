@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 
 /**
  * Класс для репрезинтации объекта Пользователь в базе данных
+ * также объект используется для авторизации на сервере,
+ * данные которого кодируются в JWT и передаются на клиент
+ * UserDetails из SECURITY
  */
 @Data
 @Entity
@@ -122,6 +125,11 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 }
 

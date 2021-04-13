@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -23,7 +24,7 @@ import java.util.Collections;
 /**
  * Класс, который используется для перехвата запроса с клиента на сервер
  * Объект внедряется между существующими фильтрами и выполняет парсинг токена из header запроса,
- * извлечения ИД и проверки пользователя в базе данных
+ * извлечения ИД и проверки пользователя в БД
  */
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
@@ -38,6 +39,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     /**
      * Метод перехватчик запроса, который вызывается каждый раз при поступлении запроса на сервер
      * для проверки пользователя по токену
+     *
      * @param httpServletRequest
      * @param httpServletResponse
      * @param filterChain
@@ -49,17 +51,18 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse httpServletResponse,
                                     FilterChain filterChain)
             throws ServletException, IOException {
+
         try {
-            String jwt = getJWTFromRequest(httpServletRequest);
             // парсинг и валидация токена для извлечения ид юзера
+            String jwt = getJWTFromRequest(httpServletRequest);
             if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
-                Long userId = jwtTokenProvider.getUserIdFromToken(jwt);
-                User userDetails = myUserDetailsService.loadUserById(userId);
+
+                String email = jwtTokenProvider.getUserEmailFromToken(jwt);
+                UserDetails userDetails = myUserDetailsService.loadUserByUsername(email);
 
                 // поиск юзера по ИД
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, Collections.emptyList()
-                );
+                UsernamePasswordAuthenticationToken authentication = jwtTokenProvider.getAuthentication(jwt,
+                        SecurityContextHolder.getContext().getAuthentication(), userDetails);
 
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authentication);

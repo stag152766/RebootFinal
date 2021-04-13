@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * Вспомогательный сервис для поиска пользователя в базе данных
+ * Вспомогательный сервис для поиска пользователя в БД
  */
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
     /**
-     * Класс хранилище для взаимодействия с базой данных
+     * Класс хранилище для взаимодействия с БД
      */
     private final UserRepository userRepository;
 
@@ -27,7 +27,7 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     /**
-     * По запросу клиента возвращает объект Пользователя из базы данных по username
+     * По запросу клиента достает объект Пользователя по email из БД
      * SECURITY
      * @param email
      * @return

@@ -56,20 +56,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and() // кто отвечает за ошибки
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() //  отказ от авторизации через сессии, в пользу токена JWT
                 .authorizeRequests()
                 .antMatchers(SecurityConstants.SING_UP_URLS).permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
-        ;
+                .and()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .and() // кто отвечает за ошибки
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); //  отказ от авторизации через сессии, в пользу токена JWT
         // фильтр для аутентификации с помощью токена
-        //http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     /**
-     * Метод для кодирования пароля перед записью в базу
+     * Метод для кодирования пароля перед записью в БД
      *
      * @param auth
      * @throws Exception
