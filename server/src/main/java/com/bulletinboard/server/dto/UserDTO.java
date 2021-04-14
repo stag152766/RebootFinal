@@ -22,4 +22,6 @@ public class UserDTO {
     private String lastname;
     private String bio;
     private Set<Role> roles;
+    private String email;
+    private Integer postCount;
 }

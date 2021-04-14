@@ -12,7 +12,7 @@ export class AdminService{
   constructor(private http: HttpClient) {
   }
 
-  getAllUsers(): Observable<any>{
+  getUserList(): Observable<any>{
     return this.http.get(ADMIN_API + 'dashboard');
   }
 
