@@ -6,6 +6,7 @@ import com.bulletinboard.server.entity.User;
 import com.bulletinboard.server.exception.UserExistingException;
 import com.bulletinboard.server.payload.request.SignupRequest;
 import com.bulletinboard.server.repository.UserRepository;
+import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import java.security.Principal;
 public class UserService {
     public static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
-
+    @Autowired
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -32,6 +33,8 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
+
+
 
     /**
      * Метод для создания нового пользователя по запросу клиента

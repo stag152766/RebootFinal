@@ -6,8 +6,10 @@ import com.bulletinboard.server.entity.User;
 import com.bulletinboard.server.facade.UserFacade;
 import com.bulletinboard.server.services.UserService;
 import com.bulletinboard.server.validations.ResponseErrorValidation;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
@@ -18,7 +20,7 @@ import java.security.Principal;
 
 /**
  * Контроллер для управления пользователем
- * Получает http запрос и передает json ответа на клиент
+ * Получает http запрос и передает json ответ на клиент
  */
 @RestController
 @RequestMapping("api/user")
@@ -53,8 +55,8 @@ public class UserController {
      * @param userId
      * @return
      */
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> getUserProfile(@PathVariable("userId") String userId) {
+    @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<UserDTO> getUserProfile(@PathVariable("userId") String userId) {
         User user = userService.getUserById(Long.parseLong(userId));
         UserDTO userDTO = userFacade.userToUserDTO(user);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);

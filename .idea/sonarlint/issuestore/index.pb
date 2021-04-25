@@ -143,3 +143,5 @@ r
 Bui/src/app/admin/components/admin-layout/admin-layout.component.ts,9\2\92b2f037373a2019766f2cfa6e4226910c76f68e
 _
 /ui/src/app/services/auth-admin-guard.service.ts,3\4\34d5a40e6d9ae78c7cff7f0c78d9dbeeec26886a
+T
+$ui/src/app/services/admin.service.ts,e\1\e1ad28339f89e75068fcdcd29654c87cf1ad995e
