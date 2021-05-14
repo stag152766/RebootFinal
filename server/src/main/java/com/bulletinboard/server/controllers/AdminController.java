@@ -46,7 +46,9 @@ public class AdminController {
                 .collect(Collectors.toList());
         for (UserDTO user : userDTOList) {
             int count = getPostCount(user);
+            int total = getAmount(user);
             user.setPostCount(count);
+            user.setTotalAmount(total);
         }
         return new ResponseEntity<>(userDTOList, HttpStatus.OK);
     }
@@ -54,6 +56,7 @@ public class AdminController {
 
     /**
      * Вспомогательный метод для подсчета количества постов пользователя
+     *
      * @param user
      * @return
      */
@@ -64,6 +67,25 @@ public class AdminController {
                 .filter(p -> p.getUsername().equals(user.getUsername()))
                 .collect(Collectors.toList())
                 .size();
+    }
+
+    /**
+     * Вспомогательный метод для подсчета суммы товаров пользователя
+     *
+     * @param user
+     * @return
+     */
+    private Integer getAmount(UserDTO user) {
+        int total = 0;
+        List<PostDTO> posts = postService.getAllPosts()
+                .stream()
+                .map(postFacade::postToPostDTO)
+                .filter(p -> p.getUsername().equals(user.getUsername()))
+                .collect(Collectors.toList());
+        for (PostDTO post: posts){
+            total += post.getPrice();
+        }
+        return total;
     }
 
 

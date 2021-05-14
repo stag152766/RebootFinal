@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminService} from "../../services/admin.service";
 import {User} from "../../models/User";
+import {Role} from "../../models/Role";
 
 
 
@@ -13,7 +14,8 @@ export class DashboardPageComponent implements OnInit {
 
   users: User[];
   isUserDataLoaded = false;
-  displayedColumns : string[] = ['id', 'username', 'email', 'role', 'posts'];
+  displayedColumns : string[] = ['id', 'username', 'email', 'role', 'posts', 'amount'];
+  roles: Role [];
 
 
   constructor(
@@ -35,11 +37,12 @@ export class DashboardPageComponent implements OnInit {
 
 
 }
-export interface UserList {
-  id : number,
-  username: string;
-  email: string;
-
-}
+// export interface UserList {
+//   id : number,
+//   username: string;
+//   email: string;
+//   role: string;
+//
+// }
 
 

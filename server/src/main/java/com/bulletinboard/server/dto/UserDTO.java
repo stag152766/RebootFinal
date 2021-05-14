@@ -25,6 +25,7 @@ public class UserDTO {
     private Set<Role> roles;
     private String email;
     private Integer postCount;
+    private Integer totalAmount;
 
     public UserDTO(Long id, String username, String email) {
         this.id = id;
@@ -46,5 +47,13 @@ public class UserDTO {
     @Override
     public int hashCode() {
         return Objects.hash(id, username, firstname, lastname, bio, roles, email, postCount);
+    }
+
+    public void setTotalAmount(int totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public int getTotalAmount() {
+        return totalAmount;
     }
 }

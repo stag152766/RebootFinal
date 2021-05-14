@@ -122,6 +122,7 @@ export class IndexComponent implements OnInit {
   }
 
 
-
-
+  replyToEmail() {
+    // TODO добавить отображение имейла
+  }
 }

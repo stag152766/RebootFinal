@@ -21,8 +21,6 @@ M
 ui/src/app/material-module.ts,5\f\5fde207c83a6f96949a3ba0b3dbc54965a61af85
 K
 ui/src/app/app.component.ts,4\f\4f5d4a5dc792c5e3f8b6e839ee7fde6f4ed45d5d
-L
-ui/src/app/models/Comment.ts,e\4\e44147834b7b894efcc63d882123615aafab5fef
 S
 #ui/src/app/services/auth.service.ts,0\6\06c66ac5cc91aa5a5c0ff79bd937f8e2a0eadc8a
 V
@@ -45,16 +43,8 @@ P
  ui/src/app/app.component.spec.ts,9\1\91d9a9290ce03a9937a1401fe39161f8c19c1f30
 f
 6ui/src/app/layout/navigation/navigation.component.html,a\7\a77bab5345f7aea958c6d1d3ea733e4ab4579b11
-I
-ui/src/app/models/Post.ts,a\a\aac8c9a899bbe0d6311b40be4ccdf2a0f21d94bb
-Z
-*ui/src/app/layout/index/index.component.ts,e\b\ebf8555e5b5628ff32e7e7c700fd8fddebd90617
 [
 +ui/src/app/layout/index/index.component.css,4\7\47b6aaf733ea4547bb6fc18b526e21cd080a2615
-\
-,ui/src/app/layout/index/index.component.html,b\b\bbad25974c4af708244bfc1423ee45fb469c402c
-I
-ui/src/app/models/User.ts,c\0\c0875412c67285aeffe04cd626b3a71cb3934918
 H
 ui/src/app/app.module.ts,7\9\793bd3bec0c19edc31a51c9885d02b0e29703300
 Y
@@ -85,8 +75,6 @@ b
 2ui/src/app/user/user-posts/user-posts.component.ts,6\a\6ae06f0efb71fb8446a1e3c61c8873f1d5bfe718
 d
 4ui/src/app/user/user-posts/user-posts.component.html,5\4\5460e2e8b3b871697197549997a4dc997ff4c71a
-P
- ui/src/app/app-routing.module.ts,f\c\fc9117a7ff5e89288e96532d92815cfe6ccf3e14
 k
 ;ui/src/app/user/favorite-posts/favorite-posts.component.css,8\5\850b1ce2456f507ccdbb64711667669c64c877cf
 S
@@ -95,8 +83,6 @@ j
 :ui/src/app/user/favorite-posts/favorite-posts.component.ts,3\5\35bf666d868e1de69fc692da6704bfa3252270d4
 l
 <ui/src/app/user/favorite-posts/favorite-posts.component.html,8\7\87d23f738c605de7330eefa6c10602990a55f74d
-M
-ui/src/app/models/Category.ts,c\d\cd2d031525e34864e4e38e8c53a56fb8e3984a7c
 B
 ui/.browserslistrc,6\b\6b2853f997115476aee2c373f184b85525da9530
 >
@@ -117,8 +103,6 @@ d
 4ui/src/app/admin/login-page/login-page.component.css,c\2\c2b0b6c8eb0584abfb53f9ba0139554332f0b9e7
 >
 ui/tslint.json,9\b\9b45b40932e7c313888476ab6c46926f7f073cd8
-t
-Dui/src/app/admin/components/admin-layout/admin-layout.component.html,6\b\6b2da43b2698d133af867b682c8871c02b21386a
 s
 Cui/src/app/admin/components/admin-layout/admin-layout.component.css,0\0\0000eb1afc03631397672c3b814de5f9a70322b1
 D
@@ -129,19 +113,11 @@ c
 3ui/src/app/admin/login-page/login-page.component.ts,9\4\94c2916744392e651d4e1d62edf2b5af42a7f98f
 @
 ui/tsconfig.json,3\4\3483adfcead9c93147bf563c701f5b6725b58a49
-l
-<ui/src/app/admin/dashboard-page/dashboard-page.component.css,0\c\0c10d20b2066bb315c440c099558dcd0c9a8db4f
-k
-;ui/src/app/admin/dashboard-page/dashboard-page.component.ts,c\9\c9878fc98f6896ee1b4971968b13ca6215f2639c
 `
 0ui/out-tsc/app/app/auth/login/login.component.js,1\d\1db9a1283732539d48536bc49525b1afaee25c2c
-m
-=ui/src/app/admin/dashboard-page/dashboard-page.component.html,9\8\989b4f7280cc37c4ef272dd83f8f15c21344df8e
 P
  ui/src/app/admin/admin.module.ts,0\7\07580cbc8933eca58ccc3451e33d19ddbb71b0e7
 r
 Bui/src/app/admin/components/admin-layout/admin-layout.component.ts,9\2\92b2f037373a2019766f2cfa6e4226910c76f68e
 _
 /ui/src/app/services/auth-admin-guard.service.ts,3\4\34d5a40e6d9ae78c7cff7f0c78d9dbeeec26886a
-T
-$ui/src/app/services/admin.service.ts,e\1\e1ad28339f89e75068fcdcd29654c87cf1ad995e
